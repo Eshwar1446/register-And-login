@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan
+		base-package="comm.module.example"></context:component-scan>
+
+<bean id="internalResourceViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		
+		<property name="prefix" value="/"/>
+		<property name="suffix" value=".jsp"/>
+		</bean> 
+
+	
+	<bean id="localSessionFactoryBean"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+
+		<!-- <property name="configLocations" value="classpath:resources/mysql.xml"></property> -->
+
+
+		<property ref="driverManagerDataSource" name="dataSource" />
+
+
+		
+		<property name="annotatedClasses">
+
+
+			
+			<list>
+
+				<value>comm.module.example.entity.SignUpEntity</value>
+
+				<!-- <value>com.org.xworkz.entity.AwardEntity</value> <value>com.org.xworkz.entity.ActorEntity</value> -->
+
+			</list>
+
+		</property>
+
+
+		
+		<property name="hibernateProperties">
+
+
+			
+			<props>
+
+				<prop key="hibernate.show_sql">true</prop>
+
+				<prop key="hibernate.show_sql">true</prop>
+
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+
+			</props>
+
+		</property>
+
+	</bean>
+
+	<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer" id="propertyPlaceholderConfigurer">
+	<property name="locations" value="classpath:registraion.properties"></property>
+	</bean>
+	<bean id="driverManagerDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName"
+			value="${Sign.Up.Entity.driver.Class.Name}" />
+
+		<property name="username" value="${Sign.Up.Entity.user.name}" />
+
+		<property name="password" value="${Sign.Up.Entity.password}" />
+
+		<property name="url" value="${Sign.Up.Entity.url}" />
+
+	</bean>
+</beans>
